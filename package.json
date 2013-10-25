@@ -1,0 +1,33 @@
+{
+  "name": "midiplex",
+  "description": "Normalize numeric data and map it to piano keys",
+  "version": "0.3.0",
+  "engines": { "node": ">=0.10.0" },
+  "dependencies": {
+    "inherits": "2.0.x",
+    "merge-stream": "0.1.x",
+    "through": "2.3.x",
+    "block-stream": "0.0.x"
+  },
+  "devDependencies": {
+    "grunt-jasmine-node": "0.1.x",
+    "grunt-contrib-watch": "0.5.x",
+    "midi": "0.7.x",
+    "event-stream": "3.0.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/emac-utd/data-piano.git"
+  },
+  "homepage": "https://github.com/emac-utd/data-piano",
+  "author": {
+    "name": "Harrison Massey",
+    "email": "harrisonm@utdallas.edu",
+    "url": "https://github.com/Harrison-M"
+  },
+  "scripts": {
+    "test": "grunt travis --verbose"
+  },
+  "license": "MIT",
+  "keywords": ["midi", "music", "baudio", "sonification"]
+}
