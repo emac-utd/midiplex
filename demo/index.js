@@ -27,7 +27,7 @@ var modStream = udpStream(modSocket)
 
 mp.addNoteStream(noteStream, {maxVal: 200})
 mp.setVelocityStream(velStream, {maxVal: 200})
-mp.addControllerStream(modStream, {maxVal: 200})
+mp.addControllerStream(modStream, {maxVal: 200, maxOut: 100})
 
 noteSocket.bind(9001)
 velSocket.bind(9002)

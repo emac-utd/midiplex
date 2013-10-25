@@ -70,7 +70,8 @@ Midiplex.prototype.addNoteStream = function(stream, opts) {
     maxVal: 255,
     minOut: 60,
     maxOut: 71,
-    channel: this.getMainChannel()
+    channel: this.getMainChannel(),
+    maxLen: 1000
   }
   var options = mergeDefaults(opts,defaults)
   var normalize = normalizer(
@@ -89,7 +90,6 @@ Midiplex.prototype.addNoteStream = function(stream, opts) {
     if(existy(self._curVel)) {
       vel = self._curVel
     }
-    else console.log('no vel stream!')
     if(note != prevNote || vel != prevVel) {
       this.queue(new Buffer(
         noteOff(options.channel, prevNote, prevVel)
@@ -97,6 +97,11 @@ Midiplex.prototype.addNoteStream = function(stream, opts) {
       this.queue(new Buffer(
         noteOn(options.channel, note, vel)
       ))
+      var thruself = this
+      setTimeout(function() { thruself.queue(new Buffer(
+          noteOff(options.channel, note, vel)
+        )) 
+      }, 1000)
       prevNote = note
       prevVel = vel
     }
