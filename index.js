@@ -1,8 +1,7 @@
 var inherits = require('inherits')
 var MergeStream = require('merge-stream')
 var through = require('through')
-var BlockStream = require('block-stream')
-
+var BlockStream = require('block-stream') 
 //Constants
 var NOTE_ON = 0x90
 var NOTE_OFF = 0x80
@@ -71,7 +70,8 @@ Midiplex.prototype.addNoteStream = function(stream, opts) {
     minOut: 60,
     maxOut: 71,
     channel: this.getMainChannel(),
-    maxLen: 1000
+    maxLen: 1000,
+    staticVelocity: 64
   }
   var options = mergeDefaults(opts,defaults)
   var normalize = normalizer(
@@ -86,7 +86,7 @@ Midiplex.prototype.addNoteStream = function(stream, opts) {
   var tr = through(function(buf) {
     var byte = buf[0]
     note = normalize(byte)
-    var vel = 64
+    var vel = options.staticVelocity
     if(existy(self._curVel)) {
       vel = self._curVel
     }
@@ -110,7 +110,7 @@ Midiplex.prototype.addNoteStream = function(stream, opts) {
   this._addStream(tr)
 }
 
-Midiplex.prototype.setVelocityStream = function(stream, opts) {
+/*Midiplex.prototype.setVelocityStream = function(stream, opts) {
   var defaults = {
     minVal: 0,
     maxVal: 255,
@@ -132,7 +132,7 @@ Midiplex.prototype.setVelocityStream = function(stream, opts) {
   tr.on('readable', function() {
     self._curVel = tr.read(1)
   })
-}
+}*/
 
 Midiplex.prototype.addControllerStream = function(stream, opts) {
   var defaults = {
