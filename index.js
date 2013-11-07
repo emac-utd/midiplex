@@ -24,7 +24,7 @@ var Midiplex = function(chan){
   this._mainChannel = chan || 0
 }
 
-inherits(Midiplex, events.eventEmitter)
+inherits(Midiplex, events.EventEmitter)
 
 Midiplex.prototype.getMainChannel = function() {
   return this._mainChannel
