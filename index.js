@@ -2,6 +2,7 @@ var inherits = require('inherits')
 var MergeStream = require('merge-stream')
 var through = require('through')
 var BlockStream = require('block-stream') 
+var events = require('events')
 //Constants
 var NOTE_ON = 0x90
 var NOTE_OFF = 0x80
@@ -23,6 +24,7 @@ var Midiplex = function(chan){
   this._mainChannel = chan || 0
 }
 
+inherits(Midiplex, events.eventEmitter)
 
 Midiplex.prototype.getMainChannel = function() {
   return this._mainChannel
@@ -59,7 +61,10 @@ function normalizer(inMin, inMax, outMin, outMax) {
 function oneAtATime() { return new BlockStream(1) }
 
 Midiplex.prototype._addStream = function(stream) {
-  if(this._mergedStream) this._mergedStream.add(stream)
+  if(this._mergedStream) {
+    this._mergedStream.add(stream)
+    this.emit('readable')
+  }
   else this._mergedStream = MergeStream(stream)
 }
 
@@ -159,6 +164,10 @@ Midiplex.prototype.addControllerStream = function(stream, opts) {
   })
   stream.pipe(oneAtATime()).pipe(tr)
   this._addStream(tr)
+}
+
+Midiplex.prototype.addPassthroughStream = function(stream) {
+  this._addStream(stream)
 }
 
 Midiplex.prototype.getReadableStream = function() {

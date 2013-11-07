@@ -1,7 +1,7 @@
 {
   "name": "midiplex",
   "description": "Turn mulitple data inputs into a single midi output",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "engines": { "node": ">=0.10.0" },
   "dependencies": {
     "inherits": "2.0.x",
