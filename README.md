@@ -17,7 +17,7 @@ var mp = new Midiplex()
 //Set up some sort of sensor input stream
 //...
 
-mp.addNoteStream(stream, { minOut: 40, maxOut: 51 }
+mp.addNoteStream(stream, { minOut: 40, maxOut: 51 })
 ```
 
 [A full-fledged example is also available](https://github.com/emac-utd/midiplex-demo-server)
